@@ -1,0 +1,31 @@
+TICKET_PRICE = 10
+SERVICE_CHARGE = 2
+tickets_remaining = 100  
+
+def calculate_price(tickets):
+    return (TICKET_PRICE*tickets)+SERVICE_CHARGE
+
+while tickets_remaining > 0:    
+    print("Tickets remaining: {}".format(tickets_remaining))
+    name = input("What is your name? ")
+    num_tickets = input("Hey there {} how many tickets would you like to purchase?  ".format(name))
+    try:
+        num_tickets = int(num_tickets)
+        if num_tickets > tickets_remaining:
+            raise ValueError("There are only {} tickets remaining".format(tickets_remaining))
+    except ValueError as err:
+        print("Oh no, we ran into an issue. {}. Please try again.".format(err))
+    else:
+        num_tickets = int(num_tickets)
+        total_cost = calculate_price(num_tickets)
+        print("Wonderful! {} tickets would cost you ${}.".format(num_tickets, total_cost, name))
+        answer = input("Would you like to continue with your purchase, {}? (Y/N)  ".format(name))
+        if answer.lower() == "y":
+            #TODO: GATHER CC info and process it.
+            print("SOLD! Thank you for your purchase, {}".format(name))
+            tickets_remaining -= num_tickets
+        else:
+            print("Thank you for your consideration, {}!".format(name))
+        if tickets_remaining == 0:
+            print("{} you have purchased the last remaining ticket(s)!".format(name))
+        
